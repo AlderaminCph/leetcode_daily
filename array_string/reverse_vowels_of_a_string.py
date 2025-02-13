@@ -28,18 +28,18 @@ import doctest
 
 class Solution:
     def reverseVowels(self, s: str) -> str:
-        lowercased_str = s.lower()
-        vowels = ["a", "e", "i", "o", "u"]
-        indexes_of_vowels = []
-        for index, letter in enumerate(lowercased_str):
-            if letter in vowels:
-                indexes_of_vowels.append(index)
-        retrieved_vowels = [s[i] for i in indexes_of_vowels]
-        reverted_vowels = dict(
-            [(index, letter) for (letter, index) in zip(retrieved_vowels[::-1], indexes_of_vowels)]
-        )
-        result = [s[i] if i not in indexes_of_vowels else reverted_vowels[i] for i in range(len(s))]
-        return "".join(result)
+        vowels = "aeiouAEIOU"
+        i, j = 0, len(s) - 1
+        resulted_string = list(s)
+        while i < j:
+            while i < j and resulted_string[i] not in vowels:
+                i += 1
+            while i < j and resulted_string[j] not in vowels:
+                j -= 1
+            if i < j:
+                resulted_string[i], resulted_string[j] = resulted_string[j], resulted_string[i]
+                i, j = i + 1, j - 1
+        return "".join(resulted_string)
 
 
 doctest.testmod()
