@@ -19,6 +19,9 @@ Example 2:
 >>> Solution().moveZeroes([0])
 [0]
 
+>>> Solution().moveZeroes([0,0,1])
+[1, 0, 0]
+
 """
 
 import doctest
@@ -30,15 +33,16 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         if len(nums) == 1:
-            return nums
+            print(nums)
+            return
 
-        i = 0
-        while i < len(nums):
-            if nums[i] == 0:
-                nums.pop(i)
-                nums.append(0)
-            i += 1
-        return nums
+        i = 0  # index for non zero elements
+        for j, element in enumerate(nums):
+            if element:  # if the element is not zero
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+
+        print(nums)
 
 
 doctest.testmod()
