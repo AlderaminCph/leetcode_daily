@@ -20,6 +20,9 @@ Example 2:
 
 >>> Solution().isSubsequence(s = "axc", t = "ahbgdc")
 False
+
+>>> Solution().isSubsequence(s = "", t = "ahbgdc")
+True
 """
 
 import doctest
@@ -29,6 +32,8 @@ class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         second = 0
         result = 0
+        if len(s) == 0:
+            return True
         for s_el in s:
             while second < len(t):
                 if t[second] != s_el:
