@@ -25,6 +25,9 @@ Example 3:
 True
 
 Explanation: The triplet (3, 4, 5) is valid because nums[3] == 0 < nums[4] == 4 < nums[5] == 6.
+
+>>> Solution().increasingTriplet([0,4,2,1,0,-1,-3])
+False
 """
 
 import doctest
@@ -35,7 +38,7 @@ class Solution:
         for i in range(len(nums) - 2):
             for j in range(1, len(nums) - 1):
                 for k in range(2, len(nums)):
-                    if nums[i] < nums[j] and nums[j] < nums[k]:
+                    if nums[i] < nums[j] and nums[j] < nums[k] and i < j and j < k:
                         return True
         return False
 
