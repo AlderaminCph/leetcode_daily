@@ -23,6 +23,9 @@ False
 
 >>> Solution().isSubsequence(s = "", t = "ahbgdc")
 True
+
+>>> Solution().isSubsequence(s = "b", t = "ahbgdc")
+True
 """
 
 import doctest
@@ -30,18 +33,18 @@ import doctest
 
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
-        second = 0
-        result = 0
-        if len(s) == 0:
+        first, second = 0, 0
+
+        while second < len(t) and first < len(s):
+            if s[first] == t[second]:
+                first += 1
+                second += 1
+            else:
+                second += 1
+        if first == len(s):
             return True
-        for s_el in s:
-            while second < len(t):
-                if t[second] != s_el:
-                    second += 1
-                else:
-                    result += 1
-                    break
-        return result == 3
+        else:
+            return False
 
 
 doctest.testmod()
