@@ -35,11 +35,15 @@ import doctest
 
 class Solution:
     def increasingTriplet(self, nums: list[int]) -> bool:
-        for i in range(len(nums) - 2):
-            for j in range(1, len(nums) - 1):
-                for k in range(2, len(nums)):
-                    if nums[i] < nums[j] and nums[j] < nums[k] and i < j and j < k:
-                        return True
+        inf = 2**31
+        first, second = inf, inf
+        for el in nums:
+            if first >= el:
+                first = el
+            elif second >= el:
+                second = el
+            else:
+                return True
         return False
 
 
