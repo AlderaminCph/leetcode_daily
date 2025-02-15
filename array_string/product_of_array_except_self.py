@@ -23,20 +23,19 @@ Example 2:
 """
 
 import doctest
-from functools import reduce
 
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
         answer = []
-        for i in range(len(nums)):
-            answer.append(
-                reduce(
-                    lambda x, y: x * y,
-                    [el for j, el in enumerate(nums) if j != i],
-                    1,
-                )
-            )
+        suffix_product = [1] * (len(nums))
+        prefix_product = [1] * (len(nums))
+        for i in range(1, len(nums)):
+            prefix_product[i] = prefix_product[i - 1] * nums[i - 1]
+        for i in range(len(nums) - 2, -1, -1):
+            suffix_product[i] = suffix_product[i + 1] * nums[i + 1]
+
+        answer = [prefix_product[i] * suffix_product[i] for i in range(len(nums))]
         return answer
 
 
