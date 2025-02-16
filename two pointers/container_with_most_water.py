@@ -24,6 +24,9 @@ Example 2:
 
 >>> Solution().maxArea([1,1])
 1
+
+>>> Solution().maxArea([8,7,2,1])
+7
 """
 
 import doctest
@@ -38,7 +41,10 @@ class Solution:
             current_amount = min(height[left], height[right]) * (right - left)
             if current_amount > amount:
                 amount = current_amount
-            left += 1
+            if height[left] <= height[right]:
+                left += 1
+            else:
+                right -= 1
         return amount
 
 
