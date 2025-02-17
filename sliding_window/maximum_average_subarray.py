@@ -19,6 +19,10 @@ Example 2:
 
 >>> Solution().findMaxAverage(nums = [5], k = 1)
 5.0
+
+>>> Solution().findMaxAverage(nums = [4,0,4,3,3], k = 5)
+2.8
+
 """
 
 import doctest
@@ -28,11 +32,14 @@ class Solution:
     def findMaxAverage(self, nums: list[int], k: int) -> float:
         current_sum = sum(nums[:k])  # current sum of sliding window of size k
         max_sum = nums[0]
+
         for i in range(k, len(nums)):
             current_sum += nums[i]  # slide window across array
             current_sum -= nums[i - k]
             max_sum = max(max_sum, current_sum)
 
+        if k == len(nums):
+            max_sum = sum(nums)
         return max_sum / k
 
 
