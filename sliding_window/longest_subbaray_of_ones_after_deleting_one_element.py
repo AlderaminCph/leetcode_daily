@@ -35,19 +35,17 @@ import doctest
 
 class Solution:
     def longestSubarray(self, nums: list[int]) -> int:
-        if 0 not in nums:
-            return len(nums) - 1
-
-        max_length, current_length = 0, 0
-        for el in nums:
-            if el == 1:
-                current_length += 1
-            elif el == 0 and (current_length + 1 > max_length):
-                current_length += 1
-                max_length = current_length
-                current_length = 0
-            max_length = max(current_length, max_length)
-        return max_length
+        left, right = 0, 0
+        answer = 0
+        number_of_zeros_in_subarray = 0
+        for right, el in enumerate(nums):
+            if el == 0:
+                number_of_zeros_in_subarray += 1
+            while number_of_zeros_in_subarray > 1:
+                number_of_zeros_in_subarray -= nums[left] ^ 1
+                left += 1
+            answer = max(answer, right - left)
+        return answer
 
 
 doctest.testmod()
