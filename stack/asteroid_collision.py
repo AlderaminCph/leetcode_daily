@@ -34,6 +34,9 @@ Explanation: The 2 and -5 collide resulting in -5. The 10 and -5 collide resulti
 
 >>> Solution().asteroidCollision(asteroids = [-2,-1,1,2])
 [-2, -1, 1, 2]
+
+>>> Solution().asteroidCollision(asteroids = [-2,-2,1,-2])
+[-2, -2, -2]
 """
 
 import doctest
@@ -47,10 +50,12 @@ class Solution:
             if asteroid > 0:
                 stack.append(asteroid)
             else:
-                if not stack:
-                    return asteroids
-                if abs(asteroid) >= abs(stack[-1]):
+                while stack and stack[-1] > 0 and stack[-1] < -asteroid:
                     stack.pop()
+                if stack and stack[-1] == -asteroid:
+                    stack.pop()
+                elif not stack or stack[-1] < 0:
+                    stack.append(asteroid)
         return stack
 
 
