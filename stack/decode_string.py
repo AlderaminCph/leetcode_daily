@@ -37,24 +37,20 @@ import doctest
 
 class Solution:
     def decodeString(self, s: str) -> str:
-        stack = []
+        stack_numbers, stack_letters = [], []
         result_string = ""
-        multyplier = 1
+        number = 0
         for symbol in s:
-            if symbol != "]":
-                stack.append(symbol)
+            if symbol.isdigit():
+                number = number * 10 + int(symbol)  # in case of multy-digit number
+            elif symbol == "[":
+                stack_numbers.append(number)
+                stack_letters.append(result_string)
+                number, result_string = 0, ""
+            elif symbol == "]":
+                result_string = stack_letters.pop() + result_string * stack_numbers.pop()
             else:
-                string_pattern = ""
-                while symbol != "[":
-                    symbol = stack.pop()
-                    if symbol != "[":
-                        string_pattern += symbol
-                    else:
-                        multyplier = int(stack.pop())
-                string_pattern = multyplier * string_pattern[::-1]
-                result_string += string_pattern
-        if stack:
-            result_string += "".join(stack)
+                result_string += symbol
         return result_string
 
 
