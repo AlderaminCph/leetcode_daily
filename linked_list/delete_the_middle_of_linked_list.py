@@ -53,7 +53,7 @@ class Solution:
         dummy_node = ListNode(next=head)
         slow, fast = dummy_node, head
 
-        while fast.next and fast.next.next:
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
