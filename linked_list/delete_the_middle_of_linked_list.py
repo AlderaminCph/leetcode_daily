@@ -61,7 +61,8 @@ class Solution:
         # we will delete it by this
         slow.next = slow.next.next
 
-        return dummy_node
+        # return the head of new list
+        return dummy_node.next
 
 
 doctest.testmod()
