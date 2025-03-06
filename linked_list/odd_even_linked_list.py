@@ -37,6 +37,8 @@ class ListNode:
 
 class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return None
         tail_node_odd, tail_node_even = head, head.next
         head_node_even = head.next
 
