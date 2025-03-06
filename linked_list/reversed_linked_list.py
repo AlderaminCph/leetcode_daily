@@ -36,15 +36,16 @@ class Solution:
     def reverseList(self, head: ListNode | None) -> ListNode | None:
         if not head:
             return None
+        dummy_node = ListNode(next=None)
+        current_node = head
 
-        prev_node, next_node = head, head.next
+        while current_node:
+            next_node = current_node.next
+            current_node.next = dummy_node.next
+            dummy_node.next = current_node
+            current_node = next_node
 
-        while next_node and next_node.next:
-            next_node.next = prev_node
-            prev_node = prev_node.next
-            next_node = prev_node.next
-
-        return next_node
+        return dummy_node.next
 
 
 doctest.testmod()
