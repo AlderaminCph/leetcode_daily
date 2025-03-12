@@ -43,7 +43,9 @@ class Solution:
         return first_tree_end_nodes == second_tree_end_nodes
 
     def dfs(self, root: TreeNode | None, nodes: list):
-        if root:
+        if root.left:
             self.dfs(root.left, nodes)
-            nodes.append(root.val)
+        if root.right:
             self.dfs(root.right, nodes)
+        if root.left == root.right:
+            nodes.append(root.val)
