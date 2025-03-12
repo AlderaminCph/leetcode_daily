@@ -40,6 +40,7 @@ class Solution:
 
         self.dfs(root1, first_tree_end_nodes)
         self.dfs(root2, second_tree_end_nodes)
+        return first_tree_end_nodes == second_tree_end_nodes
 
     def dfs(self, root: TreeNode | None, nodes: list):
         if root:
