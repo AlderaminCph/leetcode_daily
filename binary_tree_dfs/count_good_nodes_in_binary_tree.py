@@ -41,7 +41,7 @@ class TreeNode:
 
 class Solution:
     def __init__(self):
-        self.cnt = 1
+        self.cnt = 0
 
     def goodNodes(self, root: TreeNode) -> int:
         max_value = -(10**5)
@@ -56,7 +56,5 @@ class Solution:
         if root.val >= max_val:
             self.cnt += 1
             max_val = root.val
-        if root.left:
-            self.dfs(root.left, max_val)
-        if root.right:
-            self.dfs(root.right, max_val)
+        self.dfs(root.left, max_val)
+        self.dfs(root.right, max_val)
