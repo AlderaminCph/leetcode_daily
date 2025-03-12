@@ -40,17 +40,23 @@ class TreeNode:
 
 
 class Solution:
+    def __init__(self):
+        self.cnt = 1
+
     def goodNodes(self, root: TreeNode) -> int:
-        cnt = 1
-        ending_nodes = []
-        self.dfs(root, ending_nodes)
+        max_value = -(10**5)
 
-        return max(len([i for i in ending_nodes if i.val < root]), cnt)
+        self.dfs(root, max_value)
 
-    def dfs(self, root: TreeNode, nodes: list):
+        return self.cnt
+
+    def dfs(self, root: TreeNode, max_val: int):
+        if not root:
+            return
+        if root.val >= max_val:
+            self.cnt += 1
+            max_val = root.val
         if root.left:
-            self.dfs(root.left, nodes)
+            self.dfs(root.left, max_val)
         if root.right:
-            self.dfs(root.right, nodes)
-        if root.left == root.right:
-            nodes.append(root.val)
+            self.dfs(root.right, max_val)
