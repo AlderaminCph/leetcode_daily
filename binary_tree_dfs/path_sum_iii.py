@@ -38,9 +38,9 @@ class Solution:
 
     def pathSum(self, root: TreeNode | None, targetSum: int) -> int:
         if not root:
-            return
+            return 0
 
-        self.dfs(node=root, current_running_sum=0, target_sum=targetSum)
+        return self.dfs(node=root, current_running_sum=0, target_sum=targetSum)
 
     def dfs(
         self,
@@ -57,8 +57,12 @@ class Solution:
         # handle paths that start in the middle of the tree
         if (current_running_sum - target_sum) in self.count_number_of_occurences_each_sum:
             answer = self.count_number_of_occurences_each_sum[current_running_sum - target_sum]
-
-        self.count_number_of_occurences_each_sum[current_running_sum] += 1
+        else:
+            answer = 0
+        if current_running_sum in self.count_number_of_occurences_each_sum:
+            self.count_number_of_occurences_each_sum[current_running_sum] += 1
+        else:
+            self.count_number_of_occurences_each_sum[current_running_sum] = 1
 
         if node.left:
             answer += self.dfs(node.left, current_running_sum, target_sum)
@@ -66,6 +70,9 @@ class Solution:
             answer += self.dfs(node.right, current_running_sum, target_sum)
 
         # decrement the prefix sum count
-        self.count_number_of_occurences_each_sum[current_running_sum] -= 1
+        if current_running_sum in self.count_number_of_occurences_each_sum:
+            self.count_number_of_occurences_each_sum[current_running_sum] -= 1
+        else:
+            self.count_number_of_occurences_each_sum[current_running_sum] = 0
 
         return answer
