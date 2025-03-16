@@ -35,8 +35,6 @@ Output: 0
 
 """
 
-from typing import Literal
-
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -50,27 +48,24 @@ class TreeNode:
 
 class Solution:
     def longestZigZag(self, root: TreeNode | None) -> int:
-        if not root or not (root.left and root.right):
-            return 0
+        return max(self.maxZigZag(root.left, True, 0), self.maxZigZag(root.right, False, 0))
 
-        return max(self.maxZigZag(root.left, "left", 0), self.maxZigZag(root.right, "right", 0))
-
-    def maxZigZag(self, node: TreeNode, direction: Literal["right", "left"], depth) -> int:
+    def maxZigZag(self, node: TreeNode, direction_left: bool, depth) -> int:
         if not node:
             return depth
 
-        if direction == "left":
+        if direction_left:
             depth = max(
                 depth,
-                self.maxZigZag(node.right, "right", depth + 1),
-                self.maxZigZag(node.left, "left", 0),
+                self.maxZigZag(node.right, False, depth + 1),
+                self.maxZigZag(node.left, True, 0),
             )
         else:
 
             depth = max(
                 depth,
-                self.maxZigZag(node.left, "left", depth + 1),
-                self.maxZigZag(node.right, "right", 0),
+                self.maxZigZag(node.left, True, depth + 1),
+                self.maxZigZag(node.right, False, 0),
             )
 
         return depth
