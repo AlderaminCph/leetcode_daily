@@ -61,7 +61,6 @@ class Solution:
                 self.maxZigZag(node.left, True, 0),
             )
         else:
-
             depth = max(
                 depth,
                 self.maxZigZag(node.left, True, depth + 1),
