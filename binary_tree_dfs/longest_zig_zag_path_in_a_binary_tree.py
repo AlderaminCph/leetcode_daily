@@ -53,17 +53,24 @@ class Solution:
         if not root or not (root.left and root.right):
             return 0
 
-        return max(self.maxZigZag(root, "left"), self.maxZigZag(root, "right")) + 1
+        return max(self.maxZigZag(root.left, "left", 0), self.maxZigZag(root.right, "right", 0))
 
-    def maxZigZag(self, node: TreeNode, direction: Literal["right", "left"]) -> int:
+    def maxZigZag(self, node: TreeNode, direction: Literal["right", "left"], depth) -> int:
         if not node:
-            return 0
+            return depth
 
-        if direction == "right":
-            node = node.right
-            direction = "left"
+        if direction == "left":
+            depth = max(
+                depth,
+                self.maxZigZag(node.right, "right", depth + 1),
+                self.maxZigZag(node.left, "left", 0),
+            )
         else:
-            node = node.left
-            direction = "right"
 
-        return self.maxZigZag(node, direction)
+            depth = max(
+                depth,
+                self.maxZigZag(node.left, "left", depth + 1),
+                self.maxZigZag(node.right, "right", 0),
+            )
+
+        return depth
