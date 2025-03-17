@@ -27,13 +27,11 @@ class TreeNode:
 
 class Solution:
     def searchBST(self, root: TreeNode | None, val: int) -> TreeNode | None:
-        if not root:
-            return None
-        if root.val == val:
+        if not root or root.val == val:
             return root
         if root.val > val:
             # traverse recursevely left subtree
-            self.searchBST(root.left, val)
+            return self.searchBST(root.left, val)
         else:
             # traverse recursevely right subtree
-            self.searchBST(root.right, val)
+            return self.searchBST(root.right, val)
