@@ -38,16 +38,17 @@ import doctest
 
 class Solution:
     def canVisitAllRooms(self, rooms: list[list[int]]) -> bool:
-        visited_rooms = [False] * len(rooms)
-        visited_rooms[0] = True
-        initial_keys = rooms[0]
-        for _ in range(len(rooms)):
-            for key in initial_keys:
-                if not visited_rooms[key]:
-                    visited_rooms[key] = True
-                keys = rooms[key]
-            initial_keys = keys
-        return bool(visited_rooms)
+        visited_rooms = set()
+
+        def dfs(room_number: int):
+            if room_number in visited_rooms:
+                return
+            visited_rooms.add(room_number)
+            for key in rooms[room_number]:
+                dfs(key)
+
+        dfs(0)
+        return len(visited_rooms) == len(rooms)
 
 
 doctest.testmod()
